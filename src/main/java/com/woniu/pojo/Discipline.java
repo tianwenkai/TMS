@@ -10,10 +10,6 @@ import lombok.NoArgsConstructor;
 public class Discipline {
     private Integer disid;
 
-    private Integer cid;
-
-    private Integer eid;
-
     private String disname;
 
     private Integer discost;

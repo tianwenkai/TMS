@@ -90,8 +90,6 @@
                 <tr >
                   <th width="30">#</th>
 				  <th width="30"><input type="checkbox" id="checkAll"></th>
-                  <th>学科</th>
-                  <th>教室</th>
                   <th>名称</th>
                   <th>容纳人数</th>
                   <th>开班时间</th>
@@ -105,8 +103,6 @@
                 <tr>
                   <td>${i.count }</td>
 				  <td><input type="checkbox" class="abc" name="uids" value="${clazz.cid }"></td>
-                  <td>${clazz.disid }</td>
-                  <td>${clazz.classroomid }</td>
                   <td>${clazz.cname }</td>
                   <td>${clazz.cpeoplecount}</td>
                   <td>${clazz.cstarttime }</td>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.dao.ClassroomDao">
+	<select id="findAll" resultType="classroom">
+		select * from classroom
+	</select>
+
+	<select id="findOne" parameterType="int" resultType="classroom">
+		select * from classroom where classroomid=#{classroomid}
+	</select>
+
+	<select id="selectByPage" parameterType="pageBean"
+		resultType="classroom">
+		select
+		*
+		from classroom
+		<where>
+			<if test="queryVal!=null">
+				classroomname like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+		<!-- limit 起始位置,每页行数 -->
+		<!-- sql拼接时候#{} 不能进行运算，应该使用${} -->
+		limit ${(nowPage-1)*pageRow},${pageRow}
+	</select>
+
+	<select id="countAll" parameterType="pageBean" resultType="int">
+		select count(*) from classroom
+		<where>
+			<if test="queryVal!=null">
+				classroomname like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from classroom where classroomid=#{classroomid}
+	</delete>
+
+	<insert id="save" parameterType="classroom">
+		insert into classroom
+		(classroomid,classroomname,cappeople,classroomstatus)
+		values(null,#{classroomname},#{cappeople},#{classroomstatus})
+	</insert>
+
+	<update id="update" parameterType="classroom">
+		update classroom
+		<set>
+			<if test="classroomname!=null">
+				classroomname=#{classroomname},
+			</if>
+			<if test="cappeople!=null">
+				cappeople=#{cappeople},
+			</if>
+			<if test="classroomstatus!=null">
+				classroomstatus=#{classroomstatus},
+			</if>
+		</set>
+		<where>
+			classroomid=#{classroomid}
+		</where>
+	</update>
+</mapper>

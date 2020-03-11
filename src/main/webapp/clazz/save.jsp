@@ -71,17 +71,6 @@
               <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
 				<form role="form" id="saveForm">
-				
-				 <div class="form-group">
-					<label for="exampleInputPassword1">学科</label>
-					<input type="text" class="form-control" id="disid" name="disid" placeholder="请输入班级名称">
-				  </div>
-				  
-				   <div class="form-group">
-					<label for="exampleInputPassword1">教室</label>
-					<input type="text" class="form-control" id="classroomid" name="classroomid" placeholder="请输入班级名称">
-				  </div>
-				  
 				  <div class="form-group">
 					<label for="exampleInputPassword1">班级名称</label>
 					<input type="text" class="form-control" id="cname" name="cname" placeholder="请输入班级名称">

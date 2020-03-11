@@ -68,16 +68,22 @@
 						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 系统管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="user/index"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APPPATH}/clazz/index"><i class="glyphicon glyphicon-user"></i> 班级管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role/index"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
+								<a href="${APPPATH}/role/list"><i class="glyphicon glyphicon-king"></i> 角色管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission/index"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
+								<a href="${APPPATH}/discipline/index"><i class="glyphicon glyphicon-lock"></i> 学科管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/course/list"><i class="glyphicon glyphicon-lock"></i> 课程表管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/classroom/index"><i class="glyphicon glyphicon-lock"></i> 教室管理</a> 
 							</li>
 						</ul>
 					</li>

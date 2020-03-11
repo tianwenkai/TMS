@@ -2,4 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woniu.dao.DisciplineDao">
 
+	<select id="findAll" resultType="discipline">
+		select * from discipline
+	</select>
+	<select id="selectByPage" parameterType="pageBean"
+		resultType="discipline">
+		select
+		*
+		from discipline
+		<where>
+			<if test="queryVal!=null">
+				disname like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+		<!-- limit 起始位置,每页行数 -->
+		<!-- sql拼接时候#{} 不能进行运算，应该使用${} -->
+		limit ${(nowPage-1)*pageRow},${pageRow}
+	</select>
+
+	<select id="countAll" parameterType="pageBean" resultType="int">
+		select count(*) from discipline
+		<where>
+			<if test="queryVal!=null">
+				disname like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="findOne" parameterType="int" resultType="discipline">
+		select *
+		from discipline where disid=#{disid}
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from discipline where
+		disid=#{disid}
+	</delete>
+
+	<insert id="save" parameterType="discipline">
+		insert into discipline
+		(disid,disname,discost,discoursetime,disstatus)
+		values(null,#{disname},#{discost},#{discoursetime},#{disstatus})
+	</insert>
+
+	<update id="update" parameterType="discipline">
+		update discipline
+		<set>
+			<if test="disname!=null">
+				disname=#{disname},
+			</if>
+			<if test="discost!=null">
+				discost=#{discost},
+			</if>
+			<if test="discoursetime!=null">
+				discoursetime=#{discoursetime},
+			</if>
+			<if test="disstatus!=null">
+				disstatus=#{disstatus},
+			</if>
+		</set>
+		<where>
+			disid=#{disid}
+		</where>
+	</update>
 </mapper>

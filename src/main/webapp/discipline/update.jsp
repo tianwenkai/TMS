@@ -72,13 +72,21 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-				  <input type="hidden" id="cid" value="${clazz.cid }" />
-					<label for="exampleInputPassword1">班级名称</label>
-					<input type="text" class="form-control" id="cname" value="${clazz.cname }">
+				  <input type="hidden" id="cid" value="${discipline.disid }" />
+					<label for="exampleInputPassword1">学科名称</label>
+					<input type="text" class="form-control" id="disname" value="${discipline.disname }">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">班级容纳人数</label>
-					<input type="text" class="form-control" id="cpeoplecount" value="${clazz.cpeoplecount }">
+					<label for="exampleInputPassword1">学科费用</label>
+					<input type="text" class="form-control" id="discost" value="${discipline.discost}">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputPassword1">学科课时</label>
+					<input type="text" class="form-control" id="discoursetime" value="${discipline.discoursetime}">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputPassword1">学科描述</label>
+					<input type="text" class="form-control" id="disstatus" value="${discipline.disstatus}">
 				  </div>
 				  <button type="button" id="btnUpdate" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 修改</button>
 				  <button type="button" id="btnReset" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
@@ -125,26 +133,31 @@
 					}
 				});
 			    $("#btnUpdate").click(function(){
-			    	var cpeoplecountVal = $("#cpeoplecount").val();
-			    	if(cpeoplecountVal==""){
-			    		layer.msg("班级容纳人数不能为空!", {time:1000, icon:0, shift:5}, function(){});
+			    	var discostVal = $("#discost").val();
+			    	if(discostVal==""){
+			    		layer.msg("学科学费不能为空!", {time:1000, icon:0, shift:5}, function(){});
 			    		return;
 			    	}
-			    	var cnameVal = $("#cname").val();
-			    	if(cnameVal==""){
-			    		layer.msg("班级名称不能为空!", {time:1000, icon:0, shift:5}, function(){});
+			    	var disnameVal = $("#disname").val();
+			    	if(disnameVal==""){
+			    		layer.msg("学科名称不能为空!", {time:1000, icon:0, shift:5}, function(){});
+			    		return;
+			    	}
+			    	var discoursetimeVal = $("#discoursetime").val();
+			    	if(discoursetimeVal==""){
+			    		layer.msg("课时不能为空!", {time:1000, icon:0, shift:5}, function(){});
 			    		return;
 			    	}
 			    	$.ajax({
-			    		url:"${APPPATH}/clazz/updateClazz",
+			    		url:"${APPPATH}/discipline/updateDiscipline",
 			    		type:"post",
-			    		data:{"cid":$("#cid").val(),"cpeoplecount":$("#cpeoplecount").val(),"cname":$("#cname").val()},
+			    		data:{"disid":$("#disid").val(),"discost":$("#discost").val(),"disname":$("#disname").val(),"discoursetime"::$("#discoursetime").val()},
 			    		success:function(result){
 			    			if(result.flag){
-			    				layer.msg("班级信息修改成功!", {time:1000, icon:6, shift:6}, function(){});
-			    				window.location.href='${APPPATH}/clazz/index';
+			    				layer.msg("学科信息修改成功!", {time:1000, icon:6, shift:6}, function(){});
+			    				window.location.href='${APPPATH}/discipline/index';
 			    			}else{
-			    				layer.msg("班级信息修改失败!", {time:1000, icon:5, shift:5}, function(){});
+			    				layer.msg("学科信息修改失败!", {time:1000, icon:5, shift:5}, function(){});
 			    			}
 			    		}
 			    	});

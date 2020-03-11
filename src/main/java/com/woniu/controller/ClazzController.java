@@ -65,7 +65,6 @@ public class ClazzController {
 	public Object updateUser(Clazz clazz) {
 		Message message = new Message();
 		try {
-			System.err.println(123456);
 			clazzService.update(clazz);
 			message.setFlag(true);
 		} catch (Exception e) {

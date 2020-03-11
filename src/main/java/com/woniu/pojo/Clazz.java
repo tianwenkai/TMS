@@ -14,10 +14,6 @@ import lombok.NoArgsConstructor;
 public class Clazz {
 	private Integer cid;
 
-	private Integer disid;
-
-	private Integer classroomid;
-
 	private String cname;
 
 	private Integer cpeoplecount;

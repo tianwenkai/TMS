@@ -30,13 +30,15 @@ public class LoginController {
 	public String main() {
 		return "main";
 	}
-
+    
+	//登出
 	@RequestMapping("loginout")
 	public String loginout(HttpSession session) {
 		session.invalidate();
 		return "redirect:login";
 	}
-
+	
+	//学生登陆
 	@ResponseBody
 	@RequestMapping("studentloginin")
 	public Object loginIn(Student stu, HttpSession session) {
@@ -51,6 +53,7 @@ public class LoginController {
 		return message;
 	}
 	
+	//员工登陆
 	@ResponseBody
 	@RequestMapping("emploginin")
 	public Object loginIn(Emp emp, HttpSession session) {
