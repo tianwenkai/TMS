@@ -61,6 +61,31 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
 			<div class="tree">
+			<ul style="padding-left:0px;" class="list-group">
+					<li class="list-group-item tree-closed" >
+						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+					</li>
+					<li class="list-group-item tree-closed">
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 系统管理 <span class="badge" style="float:right">5</span></span> 
+						<ul style="margin-top:10px;display:none;">
+							<li style="height:30px;">
+								<a href="${APPPATH}/clazz/index"><i class="glyphicon glyphicon-user"></i> 班级管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/role/list"><i class="glyphicon glyphicon-king"></i> 角色管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/discipline/index"><i class="glyphicon glyphicon-lock"></i> 学科管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/course/list"><i class="glyphicon glyphicon-lock"></i> 课程表管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/classroom/index"><i class="glyphicon glyphicon-lock"></i> 教室管理</a> 
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
       </div>
@@ -74,7 +99,7 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件" name="queryVal">
+      <input class="form-control has-success" type="text" placeholder="请输入班级名称" name="queryVal">
     </div>
   </div>
   <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
