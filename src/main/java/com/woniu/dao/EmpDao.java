@@ -29,4 +29,6 @@ public interface EmpDao {
 
 	void updateOne(Emp emp);
 
+	List<Emp> findAllByTeacher();
+
 }

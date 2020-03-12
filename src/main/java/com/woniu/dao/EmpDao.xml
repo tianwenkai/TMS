@@ -16,6 +16,13 @@
 		r.`rid`=er.`rid` AND
 		(rname="教员" OR rname="班主任")
 	</select>
+	
+	<select id="findAllByTeacher" resultType="emp">
+		SELECT * FROM emp e, role
+		r,emprole er WHERE e.`eid`=er.`eid` AND
+		r.`rid`=er.`rid` AND
+		(rname="教员" )
+	</select>
 
 	<select id="findOne" parameterType="int" resultType="emp">
 		select *

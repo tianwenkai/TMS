@@ -82,5 +82,11 @@ public class EmpServiceImpl implements EmpService {
 		empDao.updateOne(emp);
 	}
 
+	@Override
+	public List<Emp> findAllByTeacher() {
+		// TODO Auto-generated method stub
+		return empDao.findAllByTeacher();
+	}
+
 
 }
