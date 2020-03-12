@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.EmpDao;
 import com.woniu.pojo.Emp;
+import com.woniu.pojo.PageBean;
 import com.woniu.service.EmpService;
 @Service
 @Transactional
@@ -26,5 +27,60 @@ public class EmpServiceImpl implements EmpService {
 		// TODO Auto-generated method stub
 		return empDao.login(emp);
 	}
+
+	@Override
+	public List<Emp> findAllByRole() {
+		// TODO Auto-generated method stub
+		return empDao.findAllByRole();
+	}
+
+	@Override
+	public void delete(Integer eid) {
+		// TODO Auto-generated method stub
+		empDao.delete(eid);
+	}
+
+	@Override
+	public void update(Emp emp) {
+		// TODO Auto-generated method stub
+		empDao.update(emp);
+	}
+
+	@Override
+	public Emp findOne(Integer eid) {
+		// TODO Auto-generated method stub
+		return empDao.findOne(eid);
+	}
+
+	@Override
+	public void save(Emp emp) {
+		// TODO Auto-generated method stub
+		empDao.save(emp);
+	}
+
+	@Override
+	public List<Emp> selectByPage(PageBean<Emp> pageBean) {
+		// TODO Auto-generated method stub
+		return empDao.selectByPage(pageBean);
+	}
+
+	@Override
+	public int countAll(PageBean<Emp> pageBean) {
+		// TODO Auto-generated method stub
+		return empDao.countAll(pageBean);
+	}
+
+	@Override
+	public void usernamepasswordUpdate(Emp emp) {
+		// TODO Auto-generated method stub
+		empDao.usernamepasswordUpdate(emp);
+	}
+
+	@Override
+	public void updateOne(Emp emp) {
+		// TODO Auto-generated method stub
+		empDao.updateOne(emp);
+	}
+
 
 }

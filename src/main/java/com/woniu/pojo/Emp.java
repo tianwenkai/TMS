@@ -2,6 +2,8 @@ package com.woniu.pojo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,14 +18,11 @@ public class Emp {
     private String esex;
 
     private Integer eage;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ebirthday;
 
     private String ebirthplace;
-
-    private Integer ephone;
-
-    private String eemail;
 
     private String eagree;
 

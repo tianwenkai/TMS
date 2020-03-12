@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@	 taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -103,6 +104,12 @@
 					<label for="exampleInputPassword1">班级容纳人数</label>
 					<input type="text" class="form-control" id="cpeoplecount" name="cpeoplecount" placeholder="请输入班级人数">
 				  </div>
+				  <label for="exampleInputPassword1">班主任</label>
+				   <select name="eid" id="empListByRole">
+				  	<c:forEach items="${empListByRole }" var="empListByRole">
+				  		<option value="${empListByRole.eid }">${empListByRole.ename }</option>
+				  	</c:forEach>			  
+				  </select>
 				  <div class="form-group">
 					<label for="exampleInputEmail1">开班时间</label>
 					<input type="date" class="form-control" id="cstarttime" name="cstarttime" >

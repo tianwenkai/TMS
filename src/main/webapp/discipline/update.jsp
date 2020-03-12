@@ -97,7 +97,7 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-				  <input type="hidden" id="cid" value="${discipline.disid }" />
+				  <input type="hidden" id="disid" value="${discipline.disid }" />
 					<label for="exampleInputPassword1">学科名称</label>
 					<input type="text" class="form-control" id="disname" value="${discipline.disname }">
 				  </div>
@@ -176,7 +176,7 @@
 			    	$.ajax({
 			    		url:"${APPPATH}/discipline/updateDiscipline",
 			    		type:"post",
-			    		data:{"disid":$("#disid").val(),"discost":$("#discost").val(),"disname":$("#disname").val(),"discoursetime"::$("#discoursetime").val()},
+			    		data:{"disid":$("#disid").val(),"discost":$("#discost").val(),"disname":$("#disname").val(),"discoursetime":$("#discoursetime").val()},
 			    		success:function(result){
 			    			if(result.flag){
 			    				layer.msg("学科信息修改成功!", {time:1000, icon:6, shift:6}, function(){});

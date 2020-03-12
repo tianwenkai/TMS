@@ -9,20 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniu.pojo.Clazz;
+import com.woniu.pojo.Emp;
 import com.woniu.pojo.Message;
 import com.woniu.pojo.PageBean;
 import com.woniu.service.ClazzService;
+import com.woniu.service.EmpService;
 
 @Controller
 @RequestMapping("clazz")
 public class ClazzController {
 	@Autowired
 	ClazzService clazzService;
+	@Autowired
+	EmpService empService;
 
 	@RequestMapping("index")
 	public Object index(Model model, PageBean<Clazz> pageBean) {
-		List<Clazz> userList = clazzService.selectByPage(pageBean);
-		pageBean.setList(userList);
+		List<Clazz> classList = clazzService.selectByPage(pageBean);
+		pageBean.setList(classList);
 		pageBean.setPageRow(pageBean.getPageRow());
 		int countRow = clazzService.countAll(pageBean);
 		pageBean.setCountRow(countRow);
@@ -35,7 +39,9 @@ public class ClazzController {
 	}
 
 	@RequestMapping("save")
-	public String save() {
+	public String save(Model model) {
+		List<Emp> empListByRole = empService.findAllByRole();
+		model.addAttribute("empListByRole", empListByRole);
 		return "clazz/save";
 	}
 

@@ -40,7 +40,7 @@
 					<i class="glyphicon glyphicon-user"></i> ${loginUser.uname } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
-						<li><a href="${APPPATH }/information.jsp"><i class="glyphicon glyphicon-cog"></i> 个人信息</a></li>
+						<li><a href="${APPPATH }/information"><i class="glyphicon glyphicon-cog"></i> 个人信息</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
 						<li><a href="${APPPATH }/loginout"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
@@ -65,10 +65,10 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="${APPPATH}/main"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 系统管理 <span class="badge" style="float:right">5</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 系统管理 <span class="badge" style="float:right">8</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
 								<a href="${APPPATH}/clazz/index"><i class="glyphicon glyphicon-user"></i> 班级管理</a> 
@@ -84,6 +84,12 @@
 							</li>
 							<li style="height:30px;">
 								<a href="${APPPATH}/classroom/index"><i class="glyphicon glyphicon-lock"></i> 教室管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/emp/index"><i class="glyphicon glyphicon-lock"></i> 员工管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="${APPPATH}/student/studentCRUD"><i class="glyphicon glyphicon-lock"></i> 学员管理</a> 
 							</li>
 						</ul>
 					</li>

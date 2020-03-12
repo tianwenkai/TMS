@@ -4,8 +4,136 @@
 	<select id="findAll" resultType="emp">
 		select * from emp
 	</select>
-	
+
 	<select id="login" resultType="emp">
-	select * from emp where uname=#{uname} and upwd=#{upwd}
+		select * from emp where
+		uname=#{uname} and upwd=#{upwd}
 	</select>
+
+	<select id="findAllByRole" resultType="emp">
+		SELECT * FROM emp e, role
+		r,emprole er WHERE e.`eid`=er.`eid` AND
+		r.`rid`=er.`rid` AND
+		(rname="教员" OR rname="班主任")
+	</select>
+
+	<select id="findOne" parameterType="int" resultType="emp">
+		select *
+		from emp where eid=#{eid}
+	</select>
+
+	<select id="selectByPage" parameterType="pageBean"
+		resultType="emp">
+		select
+		*
+		from emp
+		<where>
+			<if test="queryVal!=null">
+				classroomname like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+		<!-- limit 起始位置,每页行数 -->
+		<!-- sql拼接时候#{} 不能进行运算，应该使用${} -->
+		limit ${(nowPage-1)*pageRow},${pageRow}
+	</select>
+
+	<select id="countAll" parameterType="pageBean" resultType="int">
+		select count(*) from emp
+		<where>
+			<if test="queryVal!=null">
+				ename like concat('%',#{queryVal},'%')
+			</if>
+		</where>
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from emp where
+		eid=#{eid}
+	</delete>
+
+	<insert id="save" parameterType="emp">
+		insert into emp
+		(eid,ename,esex,eage,ebirthday,ebirthplace,eagree,eteachtime,estatus,uname,upwd)
+		values(null,#{ename},#{esex},#{eage},#{ebirthday},#{ebirthplace},#{eagree},#{eteachtime},#{estatus},#{uname},#{upwd})
+	</insert>
+
+	<update id="update" parameterType="emp">
+		update emp
+		<set>
+			<if test="ename!=null">
+				ename=#{ename},
+			</if>
+			<if test="esex!=null">
+				esex=#{esex},
+			</if>
+			<if test="eage!=null">
+				eage=#{eage},
+			</if>
+			<if test="ebirthday!=null">
+				ebirthday=#{ebirthday},
+			</if>
+			<if test="ebirthplace!=null">
+				ebirthplace=#{ebirthplace},
+			</if>
+			<if test="eagree!=null">
+				eagree=#{eagree},
+			</if>
+			<if test="eteachtime!=null">
+				eteachtime=#{eteachtime},
+			</if>
+			<if test="estatus!=null">
+				estatus=#{estatus},
+			</if>
+			<if test="uname!=null">
+				uname=#{uname},
+			</if>
+			<if test="upwd!=null">
+				upwd=#{upwd},
+			</if>
+		</set>
+		<where>
+			eid=#{eid}
+		</where>
+	</update>
+	
+	<!--个人信息修改-->
+  <update id="updateOne" parameterType="emp">
+    UPDATE emp
+    <set>
+      <if test="ename != null">
+        ename=#{ename},
+      </if>
+      <if test="esex != null">
+        esex=#{esex},
+      </if>
+      <if test="eage != null">
+        eage=#{eage},
+      </if>
+      <if test="ebirthday != null">
+        ebirthday=#{ebirthday},
+      </if>
+      <if test="ebirthplace != null">
+        ebirthplace=#{ebirthplace},
+      </if>
+    </set>
+    WHERE eid=#{eid}
+  </update>
+
+  <!--账户密码修改-->
+  <update id="usernamepasswordUpdate" parameterType="emp">
+    UPDATE emp
+    <set>
+      <if test="ename != null">
+        ename=#{ename},
+      </if>
+      <if test="uname != null">
+        uname=#{uname},
+      </if>
+      <if test="upwd != null">
+        upwd=#{upwd},
+      </if>
+    </set>
+    WHERE eid=#{eid}
+  </update>
+	
 </mapper>

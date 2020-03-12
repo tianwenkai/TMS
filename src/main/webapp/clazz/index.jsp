@@ -117,6 +117,7 @@
 				  <th width="30"><input type="checkbox" id="checkAll"></th>
                   <th>名称</th>
                   <th>容纳人数</th>
+                  <th>班主任</th>
                   <th>开班时间</th>
                   <th>结班时间</th>
                   <th>状态</th>
@@ -130,6 +131,7 @@
 				  <td><input type="checkbox" class="abc" name="uids" value="${clazz.cid }"></td>
                   <td>${clazz.cname }</td>
                   <td>${clazz.cpeoplecount}</td>
+                  <td>${clazz.emp.ename}</td>
                   <td>${clazz.cstarttime }</td>
                   <td>${clazz.clasttime }</td>
                   <td>${clazz.cstatus }</td>

@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Clazz {
 	private Integer cid;
+	
+	private Integer eid;
+	
+	private Emp emp;
 
 	private String cname;
 

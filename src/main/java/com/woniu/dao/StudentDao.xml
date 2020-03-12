@@ -1,7 +1,339 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woniu.dao.StudentDao">
-	<select id="login" resultType="Student">
-	select * from Student where uname=#{uname} and upwd=#{upwd}
-	</select>
+  <resultMap id="BaseResultMap" type="Student">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="ssex" jdbcType="VARCHAR" property="ssex" />
+    <result column="sage" jdbcType="INTEGER" property="sage" />
+    <result column="sphone" jdbcType="VARCHAR" property="sphone" />
+    <result column="semail" jdbcType="VARCHAR" property="semail" />
+    <result column="sbirthday" jdbcType="DATE" property="sbirthday" />
+    <result column="sbirthplace" jdbcType="VARCHAR" property="sbirthplace" />
+    <result column="paystatus" jdbcType="VARCHAR" property="paystatus" />
+    <result column="sdepict" jdbcType="VARCHAR" property="sdepict" />
+    <result column="uname" jdbcType="CHAR" property="uname" />
+    <result column="upwd" jdbcType="CHAR" property="upwd" />
+    <!--关联班级-->
+    <association property="clazz" javaType="clazz" column="cid" fetchType="lazy" >
+      <id column="cid" property="cid" />
+      <result column="disid" jdbcType="INTEGER" property="disid" />
+      <result column="classroomid" jdbcType="INTEGER" property="classroomid" />
+      <result column="cname" jdbcType="VARCHAR" property="cname" />
+      <result column="cpeoplecount" jdbcType="INTEGER" property="cpeoplecount" />
+      <result column="cstarttime" jdbcType="DATE" property="cstarttime" />
+      <result column="clasttime" jdbcType="DATE" property="clasttime" />
+      <result column="cstatus" jdbcType="VARCHAR" property="cstatus" />
+      <result column="cdepict" jdbcType="VARCHAR" property="cdepict" />
+    </association>
+    <!--关联教员-->
+  
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    sid, cid, sname, ssex, sage, sphone, semail, sbirthday, sbirthplace, paystatus, 
+    sdepict, uname, upwd
+  </sql>
+
+
+
+  <!--学生登陆-->
+  <select id="login" parameterType="student" resultType="student">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM student WHERE uname=#{uname} AND upwd=#{upwd}
+  </select>
+
+
+    <!--查询全部学生-->
+    <select id="findAll" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List"></include>
+      FROM student
+    </select>
+
+
+  <!--分页模糊查询当前登陆班主任所管理学生信息-->
+  <select id="findAllByPageAndClazzId"  resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM student,clazz
+    <!--
+        模糊查询条件
+        where uname like CONCAT('%',#{queryVal},'%')
+    -->
+    <where>
+      <if test="pageBean.queryVal!=null">
+        sname like CONCAT('%',#{pageBean.queryVal},'%')
+      </if>
+      AND student.cid=clazz.cid
+      <!--  AND student.eid=#{id}-->
+    </where>
+
+    <!-- limit 起始位置,每页行数 -->
+    limit ${(pageBean.nowPage-1)*pageBean.pageRow},${pageBean.pageRow}
+  </select>
+
+  <!--查询当前登陆班主任所管理学生信息条目数，若页面有模糊查询条件则查询-->
+    <select id="countAllByPageAndClazzId"  resultType="int">
+    SELECT COUNT(*) FROM student
+    <where>
+      <if test="pageBean.queryVal!=null">
+        sname LIKE CONCAT('%',#{pageBean.queryVal},'%')
+      </if>
+     <!--   AND eid=#{id}-->
+    </where>
+  </select>
+
+
+
+
+  <!--查询全部学生信息（分页模糊处理）-->
+  <select id="findAllByPage"  resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM student,clazz
+    <!--
+        模糊查询条件
+        where uname like CONCAT('%',#{queryVal},'%')
+    -->
+    <where>
+      <if test="pageBean.nameVal!=null">
+        sname like CONCAT('%',#{pageBean.nameVal},'%')
+      </if>
+      <if test="pageBean.clazzVal!=null">
+        AND student.cid = #{pageBean.clazzVal}
+      </if>
+      <if test="pageBean.clazzVal==null">
+          AND student.cid=clazz.cid
+      </if>
+      <!--  AND student.eid=emp.eid-->
+    </where>
+
+    <!-- limit 起始位置,每页行数 -->
+    limit ${(pageBean.nowPage-1)*pageBean.pageRow},${pageBean.pageRow}
+  </select>
+
+  <!--查询全部学生信息条目数（分页模糊处理）-->
+  <select id="countAllByPage"  resultType="int">
+    SELECT COUNT(*) FROM student   
+    <where>
+      <if test="pageBean.nameVal!=null">
+        sname LIKE CONCAT('%',#{pageBean.nameVal},'%')
+      </if>
+      <if test="pageBean.clazzVal!=null">
+        AND cid = #{pageBean.clazzVal}
+      </if>
+    </where>
+  </select>
+
+  <!--查询单个学生信息，根据id-->
+  <select id="findOneByStudentId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM student
+    WHERE sid=#{sid}
+  </select>
+
+  <!--增加学生-->
+  <insert id="save" parameterType="student">
+    INSERT INTO student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="clazz.cid != null">
+        cid,
+      </if>
+    <!--   <if test="emp.eid != null">
+        eid,
+      </if>
+      --> 
+      <if test="sname != null">
+        sname,
+      </if>
+      <if test="ssex != null">
+        ssex,
+      </if>
+      <if test="sage != null">
+        sage,
+      </if>
+      <if test="sphone != null">
+        sphone,
+      </if>
+      <if test="semail != null">
+        semail,
+      </if>
+      <if test="sbirthday != null">
+        sbirthday,
+      </if>
+      <if test="sbirthplace != null">
+        sbirthplace,
+      </if>
+      <if test="paystatus != null">
+        paystatus,
+      </if>
+      <if test="sdepict != null">
+        sdepict,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+        upwd,
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid},
+      </if>
+      <if test="clazz.cid != null">
+        #{clazz.cid},
+      </if>
+     <!--  <if test="emp.eid != null">
+        #{emp.eid},
+      </if>
+       -->
+      <if test="sname != null">
+        #{sname},
+      </if>
+      <if test="ssex != null">
+        #{ssex},
+      </if>
+      <if test="sage != null">
+        #{sage},
+      </if>
+      <if test="sphone != null">
+        #{sphone},
+      </if>
+      <if test="semail != null">
+        #{semail},
+      </if>
+      <if test="sbirthday != null">
+        #{sbirthday},
+      </if>
+      <if test="sbirthplace != null">
+        #{sbirthplace},
+      </if>
+      <if test="paystatus != null">
+        #{paystatus},
+      </if>
+      <if test="sdepict != null">
+        #{sdepict},
+      </if>
+      <if test="uname != null">
+        #{uname},
+      </if>
+        '0000',
+    </trim>
+  </insert>
+
+  <!--修改学生信息-->
+  <update id="update" parameterType="Student">
+    UPDATE student
+    <set>
+      <if test="clazz.cid != null">
+        cid=#{clazz.cid},
+      </if>
+      <!--  <if test="emp.eid != null">
+        eid=#{emp.eid},
+      </if>
+      -->
+      <if test="sname != null">
+        sname=#{sname},
+      </if>
+      <if test="ssex != null">
+        ssex=#{ssex},
+      </if>
+      <if test="sage != null">
+        sage=#{sage},
+      </if>
+      <if test="sphone != null">
+        sphone=#{sphone},
+      </if>
+      <if test="semail != null">
+        semail=#{semail},
+      </if>
+      <if test="sbirthday != null">
+        sbirthday=#{sbirthday},
+      </if>
+      <if test="sbirthplace != null">
+        sbirthplace=#{sbirthplace},
+      </if>
+      <if test="paystatus != null">
+        paystatus=#{paystatus},
+      </if>
+      <if test="sdepict != null">
+        sdepict=#{sdepict},
+      </if>
+      <if test="uname != null">
+        uname=#{uname},
+      </if>
+      <if test="upwd != null">
+        upwd=#{upwd},
+      </if>
+    </set>
+    WHERE sid=#{sid}
+  </update>
+
+  <!--个人信息修改-->
+  <update id="updateOne" parameterType="Student">
+    UPDATE student
+    <set>
+      <if test="sname != null">
+        sname=#{sname},
+      </if>
+      <if test="ssex != null">
+        ssex=#{ssex},
+      </if>
+      <if test="sage != null">
+        sage=#{sage},
+      </if>
+      <if test="sphone != null">
+        sphone=#{sphone},
+      </if>
+      <if test="semail != null">
+        semail=#{semail},
+      </if>
+      <if test="sbirthday != null">
+        sbirthday=#{sbirthday},
+      </if>
+      <if test="sbirthplace != null">
+        sbirthplace=#{sbirthplace},
+      </if>
+    </set>
+    WHERE sid=#{sid}
+  </update>
+
+  <!--账户密码修改-->
+  <update id="usernamepasswordUpdate" parameterType="Student">
+    UPDATE student
+    <set>
+      <if test="sname != null">
+        sname=#{sname},
+      </if>
+      <if test="uname != null">
+        uname=#{uname},
+      </if>
+      <if test="upwd != null">
+        upwd=#{upwd},
+      </if>
+    </set>
+    WHERE sid=#{sid}
+  </update>
+
+  <!--删除学生-->
+  <delete id="delete" parameterType="int">
+    DELETE FROM student
+    WHERE sid=#{id}
+  </delete>
+
+  <!--批量删除学生-->
+  <delete id="deleteByIds" >
+    DELETE FROM student
+    WHERE sid IN
+    <foreach collection="array" open="(" close=")" separator="," item="id">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>
